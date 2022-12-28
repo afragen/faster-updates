@@ -35,6 +35,6 @@ add_filter(
 		require_once __DIR__ . '/move-dir.php';
 		return 'move_dir';
 	},
-	10,
+	100,
 	1
 );
