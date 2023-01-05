@@ -32,3 +32,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 require_once __DIR__ . '/functions/move-dir.php';
+require_once __DIR__ . '/modules/plugins/class-main.php';
+
+new \Faster_Updates\Modules\Plugins\Main();
