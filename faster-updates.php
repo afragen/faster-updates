@@ -21,6 +21,8 @@
  * Primary Branch: main
  */
 
+namespace Faster_Updates;
+
 /*
  * Exit if called directly.
  * PHP version check and exit.
@@ -29,12 +31,4 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-add_filter(
-	'upgrader_copy_directory',
-	function( $callback ) {
-		require_once __DIR__ . '/move-dir.php';
-		return 'move_dir';
-	},
-	100,
-	1
-);
+require_once __DIR__ . '/functions/move-dir.php';
