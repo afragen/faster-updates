@@ -38,3 +38,14 @@ add_filter(
 	100,
 	1
 );
+
+// Hopefully add some VirtualBox compatibility.
+add_action(
+	'post_move_dir',
+	function() {
+		if ( function_exists( 'shell_exec' ) ) {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec
+			shell_exec( 'echo 2 > /proc/sys/vm/drop_caches' );
+		}
+	}
+);
