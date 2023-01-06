@@ -10,8 +10,8 @@
 /**
  * Plugin Name: Faster Updates
  * Author: WP Core Contributors
- * Description: Speeds up plugin/theme updates by moving files rather than copying them.
- * Version: 0.1.0
+ * Description: Speeds up plugin/theme updates by moving directories rather than recursively copying files.
+ * Version: 0.1.0.1
  * Network: true
  * License: MIT
  * Text Domain: faster-updates
@@ -38,6 +38,8 @@ add_filter(
 	100,
 	1
 );
+
+add_filter( 'upgrader_use_move_dir', '__return_true' );
 
 // Hopefully add some VirtualBox compatibility.
 add_action(
