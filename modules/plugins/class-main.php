@@ -10,8 +10,6 @@
 
 namespace Faster_Updates\Modules\Plugins;
 
-use Faster_Updates\Modules\Plugins\Upgrader as Plugins_Upgrader;
-
 /*
  * Exit if called directly.
  */
@@ -19,11 +17,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-new Plugins_Upgrader();
+require_once __DIR__ . '/class-upgrader.php';
 
 /**
  * Plugins Module: Main.
- *
+ * 
  * @since 1.0.0
  */
 class Main {
@@ -95,9 +93,9 @@ class Main {
 		wp_localize_script(
 			'updates',
 			'_wpUpdatesItemCounts',
-			[
+			array(
 				'totals' => wp_get_update_data(),
-			]
+			)
 		);
 
 		require_once ABSPATH . 'wp-admin/admin-footer.php';
@@ -114,7 +112,7 @@ class Main {
 	 * @return void
 	 */
 	public function bulk_update() {
-		if ( ! current_user_can( 'update_plugins' ) ) {
+		if ( ! current_user_can( 'update_plugins' ) ){
 			wp_die( __( 'Sorry, you are not allowed to update plugins for this site.' ) );
 		}
 
@@ -125,7 +123,7 @@ class Main {
 		} elseif ( isset( $_POST['checked'] ) ) {
 			$plugins = (array) $_POST['checked'];
 		} else {
-			$plugins = [];
+			$plugins = array();
 		}
 
 		$plugins = array_map( 'urldecode', $plugins );

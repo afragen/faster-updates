@@ -10,8 +10,6 @@
 
 namespace Faster_Updates\Modules\Themes;
 
-use function Faster_Updates\Functions\move_dir;
-
 /*
  * Exit if called directly.
  */
@@ -23,7 +21,7 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 /**
  * Themes Module: Upgrader.
- *
+ * 
  * @since 1.0.0
  */
 class Upgrader extends \Theme_Upgrader {
@@ -36,7 +34,7 @@ class Upgrader extends \Theme_Upgrader {
 	 * clear out the destination folder if it already exists.
 	 *
 	 * @since 1.0.0
-	 *
+	 * 
 	 * @global WP_Filesystem_Base $wp_filesystem        WordPress filesystem subclass.
 	 * @global array              $wp_theme_directories
 	 *
@@ -58,17 +56,17 @@ class Upgrader extends \Theme_Upgrader {
 	 *
 	 * @return array|WP_Error The result (also stored in `WP_Upgrader::$result`), or a WP_Error on failure.
 	 */
-	public function install_package( $args = [] ) {
+	public function install_package( $args = array() ) {
 		global $wp_filesystem, $wp_theme_directories;
 
-		$defaults = [
+		$defaults = array(
 			'source'                      => '', // Please always pass this.
 			'destination'                 => '', // ...and this.
 			'clear_destination'           => false,
 			'clear_working'               => false,
 			'abort_if_destination_exists' => true,
-			'hook_extra'                  => [],
-		];
+			'hook_extra'                  => array(),
+		);
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -150,7 +148,7 @@ class Upgrader extends \Theme_Upgrader {
 		 * to copy the directory into the directory, whilst they pass the source
 		 * as the actual files to copy.
 		 */
-		$protected_directories = [ ABSPATH, WP_CONTENT_DIR, WP_PLUGIN_DIR, WP_CONTENT_DIR . '/themes' ];
+		$protected_directories = array( ABSPATH, WP_CONTENT_DIR, WP_PLUGIN_DIR, WP_CONTENT_DIR . '/themes' );
 
 		if ( is_array( $wp_theme_directories ) ) {
 			$protected_directories = array_merge( $protected_directories, $wp_theme_directories );
@@ -200,15 +198,18 @@ class Upgrader extends \Theme_Upgrader {
 			}
 		}
 
-		$result = move_dir( $source, $remote_destination );
+		$result = \Faster_Updates\Functions\move_dir( $source, $remote_destination );
+
+		if ( is_wp_error( $result ) ) {
+			if ( $args['clear_working'] ) {
+				$wp_filesystem->delete( $remote_source, true );
+			}
+			return $result;
+		}
 
 		// Clear the working folder?
 		if ( $args['clear_working'] ) {
 			$wp_filesystem->delete( $remote_source, true );
-		}
-
-		if ( is_wp_error( $result ) ) {
-			return $result;
 		}
 
 		$destination_name = basename( str_replace( $local_destination, '', $destination ) );

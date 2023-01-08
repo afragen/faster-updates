@@ -10,8 +10,6 @@
 
 namespace Faster_Updates\Modules\Plugins;
 
-use function Faster_Updates\Functions\move_dir;
-
 /*
  * Exit if called directly.
  */
@@ -58,17 +56,17 @@ class Upgrader extends \Plugin_Upgrader {
 	 *
 	 * @return array|WP_Error The result (also stored in `WP_Upgrader::$result`), or a WP_Error on failure.
 	 */
-	public function install_package( $args = [] ) {
+	public function install_package( $args = array() ) {
 		global $wp_filesystem, $wp_theme_directories;
 
-		$defaults = [
+		$defaults = array(
 			'source'                      => '', // Please always pass this.
 			'destination'                 => '', // ...and this.
 			'clear_destination'           => false,
 			'clear_working'               => false,
 			'abort_if_destination_exists' => true,
-			'hook_extra'                  => [],
-		];
+			'hook_extra'                  => array(),
+		);
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -150,7 +148,7 @@ class Upgrader extends \Plugin_Upgrader {
 		 * to copy the directory into the directory, whilst they pass the source
 		 * as the actual files to copy.
 		 */
-		$protected_directories = [ ABSPATH, WP_CONTENT_DIR, WP_PLUGIN_DIR, WP_CONTENT_DIR . '/themes' ];
+		$protected_directories = array( ABSPATH, WP_CONTENT_DIR, WP_PLUGIN_DIR, WP_CONTENT_DIR . '/themes' );
 
 		if ( is_array( $wp_theme_directories ) ) {
 			$protected_directories = array_merge( $protected_directories, $wp_theme_directories );
@@ -200,7 +198,7 @@ class Upgrader extends \Plugin_Upgrader {
 			}
 		}
 
-		$result = move_dir( $source, $remote_destination );
+		$result = \Faster_Updates\Functions\move_dir( $source, $remote_destination );
 
 		// Clear the working folder?
 		if ( $args['clear_working'] ) {
@@ -210,6 +208,7 @@ class Upgrader extends \Plugin_Upgrader {
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}
+
 
 		$destination_name = basename( str_replace( $local_destination, '', $destination ) );
 		if ( '.' === $destination_name ) {
