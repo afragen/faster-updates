@@ -6,7 +6,7 @@ License: MIT
 Requires PHP: 5.6
 Requires at least: 6.0
 Tested up to: 6.2
-Stable Tag: 0.1.0
+Stable Tag: x.x.x
 
 Speeds up plugin/theme updates by moving files rather than copying them.
 
@@ -22,5 +22,5 @@ https://core.trac.wordpress.org/ticket/57386
 
 ## Changelog
 
-#### 0.1.0 / 2023-01-xx
+#### x.x.x / 2023-01-xx
 * initial commit
