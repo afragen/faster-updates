@@ -10,8 +10,8 @@
 /**
  * Plugin Name: Faster Updates
  * Author: WP Core Contributors
- * Description: Speeds up plugin/theme updates by moving directories rather than recursively copying files.
- * Version: 0.1.0.1
+ * Description: Speeds up plugin/theme updates by moving directories rather than recursively copying files. Only for updating from 'update-core.php'.
+ * Version: 0.1.0.2
  * Network: true
  * License: MIT
  * Text Domain: faster-updates
