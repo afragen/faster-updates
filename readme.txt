@@ -23,4 +23,5 @@ Substitution of move_dir for copy_dir adding more efficiency to the plugin/theme
 ## Changelog
 
 #### x.x.x / 2023-01-xx
+* add generic hooks for overriding update processing for `update-core.php`
 * initial commit
