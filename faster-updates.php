@@ -55,7 +55,7 @@ add_action(
 		 */
 		if ( function_exists( 'shell_exec' ) ) {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec
-			shell_exec( 'sync; echo 2 > /proc/sys/vm/drop_caches' );
+			// shell_exec( 'sync; echo 2 > /proc/sys/vm/drop_caches' );
 		}
 	}
 );
