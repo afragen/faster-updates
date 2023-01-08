@@ -23,6 +23,9 @@
 
 namespace Faster_Updates;
 
+use Faster_Updates\Modules\Plugins\Main as Main_Plugins;
+use Faster_Updates\Modules\Themes\Main as Main_Themes;
+
 /*
  * Exit if called directly.
  * PHP version check and exit.
@@ -31,14 +34,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once __DIR__ . '/functions/move-dir.php';
-require_once __DIR__ . '/modules/plugins/class-main.php';
-require_once __DIR__ . '/modules/themes/class-main.php';
+// Load the Composer autoloader.
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	// Avoids a redeclaration error for move_dir() from Shim.php.
+	require __DIR__ . '/vendor/autoload.php';
+}
 
-new \Faster_Updates\Modules\Plugins\Main();
-new \Faster_Updates\Modules\Themes\Main();
+new Main_Plugins();
+new Main_Themes();
 
-add_filter( 'upgrader_use_move_dir', '__return_true' );
+// add_filter( 'upgrader_use_move_dir', '__return_true' );
 
 // Hopefully add some VirtualBox compatibility.
 add_action(

@@ -10,6 +10,8 @@
 
 namespace Faster_Updates\Modules\Themes;
 
+use Faster_Updates\Modules\Themes\Upgrader as Themes_Upgrader;
+
 /*
  * Exit if called directly.
  */
@@ -17,11 +19,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once __DIR__ . '/class-upgrader.php';
+new Themes_Upgrader();
 
 /**
  * Themes Module: Main.
- * 
+ *
  * @since 1.0.0
  */
 class Main {
@@ -93,9 +95,9 @@ class Main {
 		wp_localize_script(
 			'updates',
 			'_wpUpdatesItemCounts',
-			array(
+			[
 				'totals' => wp_get_update_data(),
-			)
+			]
 		);
 
 		require_once ABSPATH . 'wp-admin/admin-footer.php';
@@ -123,7 +125,7 @@ class Main {
 		} elseif ( isset( $_POST['checked'] ) ) {
 			$themes = (array) $_POST['checked'];
 		} else {
-			$themes = array();
+			$themes = [];
 		}
 
 		$themes = array_map( 'urldecode', $themes );
