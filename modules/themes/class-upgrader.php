@@ -21,7 +21,7 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 /**
  * Themes Module: Upgrader.
- * 
+ *
  * @since 1.0.0
  */
 class Upgrader extends \Theme_Upgrader {
@@ -34,7 +34,7 @@ class Upgrader extends \Theme_Upgrader {
 	 * clear out the destination folder if it already exists.
 	 *
 	 * @since 1.0.0
-	 * 
+	 *
 	 * @global WP_Filesystem_Base $wp_filesystem        WordPress filesystem subclass.
 	 * @global array              $wp_theme_directories
 	 *
@@ -200,16 +200,13 @@ class Upgrader extends \Theme_Upgrader {
 
 		$result = \Faster_Updates\Functions\move_dir( $source, $remote_destination );
 
-		if ( is_wp_error( $result ) ) {
-			if ( $args['clear_working'] ) {
-				$wp_filesystem->delete( $remote_source, true );
-			}
-			return $result;
-		}
-
 		// Clear the working folder?
 		if ( $args['clear_working'] ) {
 			$wp_filesystem->delete( $remote_source, true );
+		}
+
+		if ( is_wp_error( $result ) ) {
+			return $result;
 		}
 
 		$destination_name = basename( str_replace( $local_destination, '', $destination ) );

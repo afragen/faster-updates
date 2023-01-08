@@ -209,7 +209,6 @@ class Upgrader extends \Plugin_Upgrader {
 			return $result;
 		}
 
-
 		$destination_name = basename( str_replace( $local_destination, '', $destination ) );
 		if ( '.' === $destination_name ) {
 			$destination_name = '';

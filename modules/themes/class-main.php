@@ -21,7 +21,7 @@ require_once __DIR__ . '/class-upgrader.php';
 
 /**
  * Themes Module: Main.
- * 
+ *
  * @since 1.0.0
  */
 class Main {
@@ -34,9 +34,9 @@ class Main {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'load-update-core.php', [ $this, 'force_faster_updates_action' ] );
-		add_action( 'update-core-custom_do-theme-upgrade-faster', [ $this, 'upgrade' ] );
-		add_action( 'update-custom_update-selected-themes-faster', [ $this, 'bulk_update' ] );
+		add_action( 'load-update-core.php', array( $this, 'force_faster_updates_action' ) );
+		add_action( 'update-core-custom_do-theme-upgrade-faster', array( $this, 'upgrade' ) );
+		add_action( 'update-custom_update-selected-themes-faster', array( $this, 'bulk_update' ) );
 	}
 
 	/**

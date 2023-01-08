@@ -21,7 +21,7 @@ require_once __DIR__ . '/class-upgrader.php';
 
 /**
  * Plugins Module: Main.
- * 
+ *
  * @since 1.0.0
  */
 class Main {
@@ -34,9 +34,9 @@ class Main {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'load-update-core.php', [ $this, 'force_faster_updates_action' ] );
-		add_action( 'update-core-custom_do-plugin-upgrade-faster', [ $this, 'upgrade' ] );
-		add_action( 'update-custom_update-selected-plugins-faster', [ $this, 'bulk_update' ] );
+		add_action( 'load-update-core.php', array( $this, 'force_faster_updates_action' ) );
+		add_action( 'update-core-custom_do-plugin-upgrade-faster', array( $this, 'upgrade' ) );
+		add_action( 'update-custom_update-selected-plugins-faster', array( $this, 'bulk_update' ) );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Main {
 	 * @return void
 	 */
 	public function bulk_update() {
-		if ( ! current_user_can( 'update_plugins' ) ){
+		if ( ! current_user_can( 'update_plugins' ) ) {
 			wp_die( __( 'Sorry, you are not allowed to update plugins for this site.' ) );
 		}
 

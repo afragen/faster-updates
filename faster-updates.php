@@ -38,7 +38,7 @@ require_once __DIR__ . '/modules/themes/class-main.php';
 new \Faster_Updates\Modules\Plugins\Main();
 new \Faster_Updates\Modules\Themes\Main();
 
-add_filter( 'upgrader_use_move_dir', '__return_true' );
+// add_filter( 'upgrader_use_move_dir', '__return_true' );
 
 // Hopefully add some VirtualBox compatibility.
 add_action(
