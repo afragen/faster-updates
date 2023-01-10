@@ -11,12 +11,12 @@
  * Plugin Name: Faster Updates
  * Author: WP Core Contributors
  * Description: Speeds up plugin/theme updates by moving directories rather than recursively copying files. Only for updating from 'update-core.php'.
- * Version: 0.2.0
+ * Version: 0.2.1
  * Network: true
  * License: MIT
  * Text Domain: faster-updates
  * Requires PHP: 5.6
- * Requires at least: 6.2
+ * Requires at least: 6.0
  * GitHub Plugin URI: https://github.com/afragen/faster-updates
  * Primary Branch: main
  */
