@@ -49,13 +49,11 @@ function move_dir( $from, $to ) {
 	do_action( 'pre_move_dir' );
 
 	if ( 'direct' === $wp_filesystem->method ) {
-		$wp_filesystem->rmdir( $to );
-
-		$result = @rename( $from, $to );
-	}
-
-	// Non-direct filesystems use some version of rename without a fallback.
-	if ( 'direct' !== $wp_filesystem->method ) {
+		if ( $wp_filesystem->rmdir( $to ) ) {
+			$result = @rename( $from, $to );
+		}
+	} else {
+		// Non-direct filesystems use some version of rename without a fallback.
 		$result = $wp_filesystem->move( $from, $to );
 	}
 
