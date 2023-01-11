@@ -28,6 +28,8 @@ if ( ! $wp_filesystem ) {
  * Moves a directory from one location to another via the rename() PHP function.
  * If the renaming failed, falls back to copy_dir().
  *
+ * @since 6.2.0
+ *
  * Assumes that WP_Filesystem() has already been called and setup.
  *
  * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
@@ -51,10 +53,12 @@ function move_dir( $from, $to ) {
 	if ( 'direct' === $wp_filesystem->method ) {
 		if ( $wp_filesystem->rmdir( $to ) ) {
 			$result = @rename( $from, $to );
+			wp_opcache_invalidate_directory( $to );
 		}
 	} else {
 		// Non-direct filesystems use some version of rename without a fallback.
 		$result = $wp_filesystem->move( $from, $to );
+		wp_opcache_invalidate_directory( $to );
 	}
 
 	if ( ! $result ) {
@@ -80,4 +84,25 @@ function move_dir( $from, $to ) {
 	do_action( 'post_move_dir' );
 
 	return $result;
+}
+
+/**
+ * Invalidate OPcache of directory of files.
+ *
+ * @since 6.2.0
+ *
+ * @param string $dir Path to directory.
+ *
+ * @return void
+ */
+function wp_opcache_invalidate_directory( $dir ) {
+	global $wp_filesystem;
+
+	$dirlist           = $wp_filesystem->dirlist( $dir, false, true );
+	$wp_upgrader       = new \WP_Upgrader();
+	$reflection_method = new \ReflectionMethod( $wp_upgrader, 'flatten_dirlist' );
+	$files             = $reflection_method->invoke( $wp_upgrader, $dirlist );
+	foreach ( array_keys( $files ) as $file ) {
+		wp_opcache_invalidate( trailingslashit( $dir ) . $file );
+	}
 }
