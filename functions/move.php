@@ -98,10 +98,28 @@ function move_dir( $from, $to ) {
 function wp_opcache_invalidate_directory( $dir ) {
 	global $wp_filesystem;
 
-	$dirlist           = $wp_filesystem->dirlist( $dir, false, true );
-	$wp_upgrader       = new \WP_Upgrader();
-	$reflection_method = new \ReflectionMethod( $wp_upgrader, 'flatten_dirlist' );
-	$files             = $reflection_method->invoke( $wp_upgrader, $dirlist );
+	$files   = array();
+	$dirlist = $wp_filesystem->dirlist( $dir, false, true );
+
+	// Local version of WP_Upgrader::flatten_dirlist().
+	$flatten_dirlist = function( $nested_files, $path = '' ) use ( &$flatten_dirlist ) {
+		$files = array();
+
+		foreach ( $nested_files as $name => $details ) {
+			$files[ $path . $name ] = $details;
+
+			// Append children recursively.
+			if ( ! empty( $details['files'] ) ) {
+				$children = $flatten_dirlist( $details['files'], $path . $name . '/' );
+
+				// Merge keeping possible numeric keys, which array_merge() will reindex from 0..n.
+				$files = $files + $children;
+			}
+		}
+		return $files;
+	};
+	$files           = $flatten_dirlist( $dirlist );
+
 	foreach ( array_keys( $files ) as $file ) {
 		wp_opcache_invalidate( trailingslashit( $dir ) . $file );
 	}
