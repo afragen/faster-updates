@@ -12,7 +12,7 @@ Speeds up plugin/theme updates by moving files rather than copying them.
 
 ## Description
 
-For testing only. Only works when updating from update-core.php page.
+For testing only. Only works when updating from update-core.php page. [Testing instructions](./testing_instructions.md)
 
 Speeds up plugin/theme updates by moving files rather than copying them. Reduces the chance of running out of diskspace during updates. Lower memory usage reduces the chance of timeouts during updates.
 
@@ -23,5 +23,6 @@ Substitution of move_dir for copy_dir adding more efficiency to the plugin/theme
 ## Changelog
 
 #### x.x.x / 2023-01-xx
+* initial pass
 * add generic hooks for overriding update processing for `update-core.php`
-* initial commit
+* add `wp_opcache_invalidate_directory()`
