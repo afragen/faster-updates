@@ -12,13 +12,17 @@ Speeds up plugin/theme updates by moving files rather than copying them.
 
 ## Description
 
-For testing only. Only works when updating from update-core.php page. [Testing instructions](./testing_instructions.md)
+For testing only. Only works when updating from update-core.php page. [Testing instructions](https://github.com/afragen/faster-updates/blob/main/testing_instructions.md)
 
 Speeds up plugin/theme updates by moving files rather than copying them. Reduces the chance of running out of diskspace during updates. Lower memory usage reduces the chance of timeouts during updates.
 
-VirtualBox not supported -- yet??.
-
 Substitution of move_dir for copy_dir adding more efficiency to the plugin/theme update process. This could improve the efficiency and performance for 99+% of users who opt-in and will likely fix #53832, #54166, and #34676.
+
+### VirtualBox
+
+VirtualBox being tested. If you encounter any problems while using VirtualBox please uncomment the following line in `faster-updates.php`.
+
+`// shell_exec( 'sync; echo 2 > /proc/sys/vm/drop_caches' );`
 
 ## Changelog
 
