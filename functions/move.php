@@ -93,7 +93,7 @@ function move_dir( $from, $to ) {
  *
  * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
  *
- * @param string|array $dir  The path to invalidate, or the results of ::dirlist().
+ * @param string|array $dir  The path to invalidate, or the results of WP_Filesystem_Base::dirlist().
  * @param string       $path The path to invalidate for nested directories.
  *
  * @return void
