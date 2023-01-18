@@ -12,6 +12,4 @@
 1. Report any errors you encounter, or let us know if you don't encounter any errors.
 1. Feel free to do the same for a few themes.
 
-If you use VirtualBox in your development environment, commonly used in Chassis and VVV, please help. In addition to the instructions above, if you encounter an error. Please uncomment the following line in `faster-updates.php` and retest.
-
-`// shell_exec( 'sync; echo 2 > /proc/sys/vm/drop_caches' );`
+If you use VirtualBox in your development environment, commonly used in Chassis and VVV, please help.
