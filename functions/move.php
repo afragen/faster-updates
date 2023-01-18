@@ -101,15 +101,12 @@ function wp_opcache_invalidate_directory( $dir ) {
 	global $wp_filesystem;
 
 	if ( ! is_string( $dir ) || '' === trim( $dir ) ) {
-		_doing_it_wrong(
-			__FUNCTION__,
-			sprintf(
-				/* translators: %s: The '$dir' argument. */
-				__( 'The %s argument must be a non-empty string.' ),
-				'<code>$dir</code>'
-			),
-			'6.2.0'
+		$error_message = sprintf(
+			/* translators: %s: The '$dir' argument. */
+			__( 'The %s argument must be a non-empty string.' ),
+			'<code>$dir</code>'
 		);
+		trigger_error( $error_message );
 		return;
 	}
 
