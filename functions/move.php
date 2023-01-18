@@ -116,7 +116,12 @@ function wp_opcache_invalidate_directory( $dir ) {
 		return;
 	}
 
-	// Recursively invalidate files in the directory.
+	/*
+	 * Recursively invalidate opcache of nested files.
+	 *
+	 * @param array  $dirlist Array of file/directory information from WP_Filesystem_Base::dirlist().
+	 * @param string $path    Path to directory.
+	 */
 	$invalidate_directory = function( $dirlist, $path ) use ( &$invalidate_directory ) {
 		$path = trailingslashit( $path );
 
