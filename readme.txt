@@ -20,9 +20,7 @@ Substitution of move_dir for copy_dir adding more efficiency to the plugin/theme
 
 ### VirtualBox
 
-VirtualBox is being tested. If you encounter any problems while using VirtualBox please uncomment the following line in `faster-updates.php`.
-
-`// shell_exec( 'sync; echo 2 > /proc/sys/vm/drop_caches' );`
+VirtualBox is being tested. If you encounter any problems while using VirtualBox please let us know.
 
 ## Changelog
 
