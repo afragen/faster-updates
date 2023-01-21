@@ -53,11 +53,13 @@ function move_dir( $from, $to ) {
 	if ( 'direct' === $wp_filesystem->method ) {
 		if ( $wp_filesystem->rmdir( $to ) ) {
 			$result = @rename( $from, $to );
+			usleep( 200000 ); // VirtualBox needs to nap.
 			wp_opcache_invalidate_directory( $to );
 		}
 	} else {
 		// Non-direct filesystems use some version of rename without a fallback.
 		$result = $wp_filesystem->move( $from, $to );
+		usleep( 200000 ); // VirtualBox needs to nap.
 		wp_opcache_invalidate_directory( $to );
 	}
 
@@ -106,7 +108,7 @@ function wp_opcache_invalidate_directory( $dir ) {
 			'<code>$dir</code>'
 		);
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-		trigger_error( $error_message );
+		trigger_error( wp_kses_post( $error_message ) );
 		return;
 	}
 
