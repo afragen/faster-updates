@@ -47,8 +47,11 @@ function move_dir( $from, $to ) {
 	 * Fires before move_dir().
 	 *
 	 * @since 6.2.0
+	 *
+	 * @param string $from Source directory.
+	 * @param string $to   Destination directory.
 	 */
-	do_action( 'pre_move_dir' );
+	do_action( 'pre_move_dir', $from, $to );
 
 	if ( 'direct' === $wp_filesystem->method ) {
 		if ( $wp_filesystem->rmdir( $to ) ) {
@@ -82,8 +85,12 @@ function move_dir( $from, $to ) {
 	 * Fires after move_dir().
 	 *
 	 * @since 6.2.0
+	 *
+	 * @param string $from  Source directory.
+	 * @param string $to    Destination directory.
+	 * @param true|WP_Error Result from move_dir().
 	 */
-	do_action( 'post_move_dir' );
+	do_action( 'post_move_dir', $from, $to, $result );
 
 	return $result;
 }
