@@ -198,7 +198,7 @@ class Upgrader extends \Plugin_Upgrader {
 			}
 		}
 
-		$result = \Faster_Updates\Functions\move_dir( $source, $remote_destination );
+		$result = \Faster_Updates\Functions\move_dir( $source, $remote_destination, true );
 
 		// Clear the working folder?
 		if ( $args['clear_working'] ) {
