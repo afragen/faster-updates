@@ -34,12 +34,25 @@ if ( ! $wp_filesystem ) {
  *
  * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
  *
- * @param string $from Source directory.
- * @param string $to   Destination directory.
+ * @param string $from      Source directory.
+ * @param string $to        Destination directory.
+ * @param bool   $overwrite Overwrite destination.
+ *                          Default is false.
  * @return true|WP_Error True on success, WP_Error on failure.
  */
-function move_dir( $from, $to ) {
+function move_dir( $from, $to, $overwrite = false ) {
 	global $wp_filesystem;
+
+	if ( ! $overwrite && $wp_filesystem->exists( $to ) ) {
+		return new WP_Error(
+			'to_directory_already_exists_move_dir',
+			sprintf(
+				/* translators: %s: The '$to' argument name. */
+				__( '%s already exists.' ),
+				'<code>$to</code>'
+			)
+		);
+	}
 
 	$result = false;
 
@@ -101,13 +114,15 @@ function wp_opcache_invalidate_directory( $dir ) {
 	global $wp_filesystem;
 
 	if ( ! is_string( $dir ) || '' === trim( $dir ) ) {
-		$error_message = sprintf(
-			/* translators: %s: The '$dir' argument. */
-			__( 'The %s argument must be a non-empty string.' ),
-			'<code>$dir</code>'
-		);
-		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-		trigger_error( wp_kses_post( $error_message ) );
+		if ( WP_DEBUG ) {
+			$error_message = sprintf(
+				/* translators: %s: The function name. */
+				__( '%s expects a non-empty string.' ),
+				'<code>wp_opcache_invalidate_directory()</code>'
+			);
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+			trigger_error( $error_message );
+		}
 		return;
 	}
 
