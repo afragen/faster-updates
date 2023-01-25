@@ -58,11 +58,11 @@ function move_dir( $from, $to, $overwrite = false ) {
 
 	if ( 'direct' === $wp_filesystem->method ) {
 		if ( $wp_filesystem->delete( $to, true ) ) {
-			$result = @rename( $from, $to, $overwrite );
+			$result = @rename( $from, $to );
 		}
 	} else {
 		// Non-direct filesystems use some version of rename without a fallback.
-		$result = $wp_filesystem->move( $from, $to );
+		$result = $wp_filesystem->move( $from, $to, $overwrite );
 	}
 
 	if ( $result ) {
