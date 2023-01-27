@@ -24,8 +24,9 @@ VirtualBox is being tested. If you encounter any problems while using VirtualBox
 
 ## Changelog
 
-#### x.x.x / 2023-01-xx
+#### [unreleased]
 * initial pass
 * add generic hooks for overriding update processing for `update-core.php`
 * add `wp_opcache_invalidate_directory()`
 * add fixes for VirtualBox issues
+* removed unused hooks from `move_dir()`
